@@ -1,11 +1,12 @@
-import numpy
-
+# import numpy
+import random
 #setup generator
-gen = numpy.random.default_rng()
+# gen = numpy.random.default_rng()
 
 
 def roll_rng(dice_count: int, dice_type: int):
-    return [gen.integers(low=1, high=dice_type+1) for i in range(dice_count)]
+    # return [gen.integers(low=1, high=dice_type+1) for i in range(dice_count)]
+    return [random.randint(a=1, b=dice_type) for i in range(dice_count)]
 
 
 def default_dice_randomiser(dice_sets: list, total_runs: int):
