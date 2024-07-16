@@ -19,7 +19,7 @@ def default_dice_randomiser(dice_sets: list, total_runs: int):
     default_res = [[v for l in t for v in l] for t in temp]
     
     [print(p) for p in default_res]
-    return default_res
+    return [sum(d) for d in default_res]
 
 
 def maximised_dice_randomiser(dice_sets: list, total_runs: int):
@@ -33,7 +33,7 @@ def maximised_dice_randomiser(dice_sets: list, total_runs: int):
     max_res = [[v for l in t for v in l] for t in temp]
 
     [print(p) for p in max_res]
-    return max_res
+    return [sum(d) for d in max_res]
 
 
 def maximise_one_dice_randomiser(dice_sets: list, total_runs: int):
@@ -47,7 +47,7 @@ def maximise_one_dice_randomiser(dice_sets: list, total_runs: int):
     max_one_res = [[v for l in t for v in l] for t in temp]
 
     [print(p) for p in max_one_res]
-    return max_one_res
+    return [sum(d) for d in max_one_res]
 
 
 def dice_separator(input_dice: str):
@@ -75,7 +75,7 @@ if __name__ in "__main__":
     dice_str: str = "1d8+2d6+3"
     print(dice_str)
 
-    runs = 10
+    runs = 100000
 
     try:
         # check for valid str
