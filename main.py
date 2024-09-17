@@ -1,5 +1,7 @@
 # import numpy
 import random
+import sys
+
 #setup generator
 # gen = numpy.random.default_rng()
 
@@ -41,11 +43,7 @@ def maximise_one_dice_randomiser(dice_sets: list, total_runs: int):
     # the last entry is alway expected to be a stat modification otherwise none
     if len(dice_sets[-1]) < 2:
         mod = dice_sets[-1]
-        temp = [
-            [
-                [d[-1]] + roll_rng(dice_count=(d[0]*2)-1, dice_type=d[-1]) for d in dice_sets if len(d) > 1] + [mod] 
-                for _ in range(total_runs)
-            ]
+        temp = [[[d[-1]] + roll_rng(dice_count=(d[0]*2)-1, dice_type=d[-1]) for d in dice_sets if len(d) > 1] + [mod] for _ in range(total_runs)]
     else:
         temp = [[[d[-1]] + roll_rng(dice_count=(d[0]*2)-1, dice_type=d[-1]) for d in dice_sets] for _ in range(total_runs)]
 
@@ -76,6 +74,18 @@ if __name__ in "__main__":
     # setup 
     default_results: list[int] = []
 
+    if len(sys.argv) < 1:
+        dice_str: str = input("Please input your dice with mods (eg 1d6+1): ")
+        if len(dice_str) < 1:
+            dice_str: str = "1d8+2d6+3"
+            print(f"no dice provided, using default of {dice_str}")
+        elif len(dice_str) < 3:
+            dice_str: str = "1d8+2d6+3"
+            print(f"invalid dice provided, using default of {dice_str}")
+    else:
+        print(f"dice being used as follows: {sys.argv[0]}")
+        dice_str: str = sys.argv[0]
+
     # input dice combinations
     dice_str: str = "1d8+2d6+3"
     print(dice_str)
@@ -88,7 +98,7 @@ if __name__ in "__main__":
         sep_count = dice_str.count("+")
 
         if dice_set_count > sep_count:
-            raise ValueError()
+            raise ValueError(f"invalid dice combination provided: {dice_str}, exiting")
         
         # breakdown dice sets
         dice_list = dice_separator(dice_str)
